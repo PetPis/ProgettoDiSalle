@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: savemymoney
+Implementation-Version: 1.0.0-SNAPSHOT
+Built-By: Marco
+Implementation-Vendor-Id: PetPis-Team
+Build-Jdk: 1.8.0_181
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/savemymoney
+Created-By: Maven Integration for Eclipse
+
