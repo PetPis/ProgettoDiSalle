@@ -28,7 +28,10 @@ public class SaveMyMoneyApplication {
 
 	@Bean
 	public CommandLineRunner loadData(UtenteRepository utenteRepository, FamigliaRepository famigliaRepository, CategoriaRepository categoriaRepository, MovimentoRepository movimentoRepository) {
-		return (args) -> {			
+		return (args) -> {	
+			
+			
+			
 			Famiglia pis = new Famiglia();
 			pis.setNome("pistilli");
 			pis=famigliaRepository.save(pis);
