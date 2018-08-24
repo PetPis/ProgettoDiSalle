@@ -3,6 +3,8 @@ package savemymoney.business.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,11 +43,6 @@ public class SaveMyMoneyServiceImpl implements SaveMyMoneyService {
 	@Override
 	public Movimento findMovimentoById(Long id) throws BusinessException{
 		return movimentoRepository.findById(id).get();
-	}
-	
-	@Override
-	public List<Movimento> findAllMovimenti() throws BusinessException{
-		return movimentoRepository.findAll();
 	}
 
 	@Override
@@ -113,6 +110,40 @@ public class SaveMyMoneyServiceImpl implements SaveMyMoneyService {
 	@Override
 	public void InserFamiiglia(Famiglia famiglia) throws BusinessException {
 		famigliaRepository.save(famiglia);	
+	}
+	
+	@Override
+	public Utente updateProfilo(Utente profilo) throws BusinessException {
+		Utente utente = utenteRepository.findByUsername(profilo.getUsername());
+		utente.setFamiglia(profilo.getFamiglia());
+		return utente;
+	}
+	
+	@Override
+	public List<Movimento> findAllMovimentiByFamiglia(Famiglia famiglia)throws BusinessException{
+		return movimentoRepository.findAllMovimentiByFamigliaId(famiglia.getId(),JpaSort.unsafe(Direction.DESC,"data"));
+	}
+
+	@Override
+	public void createMovimento(Movimento movimento) throws BusinessException {
+		movimentoRepository.save(movimento);	
+	}
+
+	@Override
+	public void deleteMovimento(Long id) throws BusinessException {
+		movimentoRepository.deleteById(id);;	
+	}
+
+	@Override
+	public void updateMovimento(Movimento movimento) throws BusinessException {
+		movimentoRepository.save(movimento);
+		
+	}
+
+	@Override
+	public Famiglia findFamigliaByUtente(Utente utente) throws BusinessException {
+		Long id = utente.getId();
+		return utenteRepository.findFamigliaById(id);
 	}
 
 }

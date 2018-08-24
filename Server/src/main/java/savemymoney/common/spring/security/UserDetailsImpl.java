@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import savemymoney.domain.CapoFamiglia;
-import savemymoney.domain.Membro;
 import savemymoney.domain.Utente;
 
 @SuppressWarnings("serial")
@@ -55,15 +53,15 @@ public class UserDetailsImpl implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> result = new ArrayList<>();
 
-		if (utente instanceof CapoFamiglia) {
+		/*if (utente instanceof CapoFamiglia) {
 			GrantedAuthorityImpl authorityImpl = new GrantedAuthorityImpl("capoFamiglia");
 			result.add(authorityImpl);
 		} else {
-			if (utente instanceof Membro) {
+			if (utente instanceof Membro) {*/
 				GrantedAuthorityImpl authorityImpl = new GrantedAuthorityImpl("membro");
 				result.add(authorityImpl);
-			}
-		}
+			//}
+		//}
 		return result;
 	}
 

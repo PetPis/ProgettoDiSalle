@@ -2,6 +2,8 @@ package savemymoney.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,8 +18,8 @@ public class Categoria {
 	@Column(name = "ID_CATEGORIA", nullable = false)
 	private Long id;
 	
-	@Column(name = "SEGNO", nullable = false)
-	private boolean segno;
+	@Enumerated(EnumType.STRING)
+	private TipoMovimento segno;
 	
 	@Column(name = "NOME", nullable = false, length = 255)
 	private String nome;
@@ -41,11 +43,11 @@ public class Categoria {
 		this.nome=nome;
 	}
 	
-	public boolean getSegno() {
+	public TipoMovimento getSegno() {
 		return segno;
 	}
 	
-	public void setSegno(boolean segno) {
+	public void setSegno(TipoMovimento segno) {
 		this.segno =segno;
 	}
 	

@@ -4,10 +4,13 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -20,8 +23,6 @@ public class Movimento {
 	@Column(name = "ID_MOVIMENTO", nullable = false)
 	private Long id;
 	
-	@Column(name="NOME", nullable = false,length=255)
-	private String nome;
 	
 	@Column(name = "DATA", nullable = false)
 	private Date data;
@@ -29,12 +30,9 @@ public class Movimento {
 	@Column(name = "IMPORTO", nullable = false)
 	private double importo;
 	
-	@Column(name = "SEGNO", nullable = false)
-	private boolean segno;
-	
 	@ManyToOne
-	@JoinColumn(name = "UTENTE_IDUTENTE", nullable = false)
-	private Utente utente;
+	@JoinColumn(name = "FAMIGLiA_IDFAMIGLIA", nullable = false)
+	private Famiglia famiglia;
 	
 	@ManyToOne
 	@JoinColumn(name = "CATEGORIA_IDCATEGORIA", nullable = false)
@@ -63,20 +61,12 @@ public class Movimento {
 		this.importo=d;
 	}
 	
-	public boolean getSegno() {
-		return segno;
+	public Famiglia getFamiglia() {
+		return famiglia;
 	}
 	
-	public void setSegno(boolean segno) {
-		this.segno=segno;
-	}
-	
-	public Utente getUtente() {
-		return utente;
-	}
-	
-	public void setUtente(Utente utente) {
-		this.utente=utente;
+	public void setFamiglia(Famiglia famiglia) {
+		this.famiglia=famiglia;
 	}
 	
 	public Categoria getCategoria() {
@@ -86,12 +76,5 @@ public class Movimento {
 	public void setCategoria(Categoria categoria) {
 		this.categoria=categoria;
 	}
-	
-	public String getNome() {
-		return this.nome;
-	}
-	
-	public void setNome(String nome) {
-		this.nome=nome;
-	}
+
 }

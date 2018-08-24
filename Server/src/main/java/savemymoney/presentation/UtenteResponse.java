@@ -1,6 +1,5 @@
 package savemymoney.presentation;
 
-import savemymoney.domain.CapoFamiglia;
 import savemymoney.domain.Famiglia;
 import savemymoney.domain.Utente;
 
@@ -9,7 +8,6 @@ public class UtenteResponse {
 	private String username;
 	private String nome;
 	private String cognome;
-	private String tipo;
 	private Famiglia famiglia;
 	
 	public UtenteResponse() {
@@ -20,11 +18,6 @@ public class UtenteResponse {
 		this.cognome = utente.getCognome();
 		this.username = utente.getUsername();
 		this.famiglia = utente.getFamiglia();
-		if (utente instanceof CapoFamiglia) {
-			this.tipo = "capoFamiglia";
-		} else {
-			this.tipo = "membro";
-		}
 	}
 	
 	public String getNome() {
@@ -51,13 +44,4 @@ public class UtenteResponse {
 	public void setFamiglia(Famiglia famiglia) {
 		this.famiglia = famiglia;
 	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
 }

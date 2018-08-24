@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import savemymoney.business.SaveMyMoneyService;
+import savemymoney.common.Utility;
 import savemymoney.domain.Famiglia;
+import savemymoney.domain.Utente;
 
 @RestController
 @RequestMapping("/api/famiglia")
@@ -25,7 +27,7 @@ public class RESTFamigliaController {
 	public Famiglia findFamigliaById(@PathVariable long idFamiglia) {
 		return service.findFamigliaById(idFamiglia);
 	}
-
+	
 	@PostMapping
 	public void insertFamiglia(@RequestBody Famiglia famiglia) {
 		service.InserFamiiglia(famiglia);
@@ -39,5 +41,11 @@ public class RESTFamigliaController {
 	@DeleteMapping("/{idFamiglia}")
 	public void deleteFamiglia( @PathVariable long idFamiglia) {
 		service.DeleteFamigliaById(idFamiglia);
+	}
+	
+	@GetMapping()
+	public Famiglia getFamigliaByUtente () {
+		Utente utente= Utility.getUtente();
+		return service.findFamigliaByUtente(utente);
 	}
 }

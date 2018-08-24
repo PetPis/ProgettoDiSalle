@@ -1,5 +1,7 @@
 package savemymoney.presentation;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import savemymoney.business.SaveMyMoneyService;
+import savemymoney.common.Utility;
 import savemymoney.domain.Categoria;
+import savemymoney.domain.Movimento;
+import savemymoney.domain.Utente;
 
 @RestController
 @RequestMapping("/api/categorie")
@@ -24,6 +29,11 @@ public class RESTCategoriaController {
 	@GetMapping("/{idCategoria}")
 	public Categoria findCategoriaById(@PathVariable long idCategoria) {
 		return service.findCategoriaById(idCategoria);
+	}
+	
+	@GetMapping
+	public List<Categoria> findAllCategorie(){
+		return service.findAllCategorie();
 	}
 
 	@PostMapping

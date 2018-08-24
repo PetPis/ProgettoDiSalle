@@ -13,11 +13,11 @@ import savemymoney.business.impl.repositories.CategoriaRepository;
 import savemymoney.business.impl.repositories.FamigliaRepository;
 import savemymoney.business.impl.repositories.MovimentoRepository;
 import savemymoney.business.impl.repositories.UtenteRepository;
-import savemymoney.domain.CapoFamiglia;
 import savemymoney.domain.Categoria;
 import savemymoney.domain.Famiglia;
-import savemymoney.domain.Membro;
 import savemymoney.domain.Movimento;
+import savemymoney.domain.TipoMovimento;
+import savemymoney.domain.Utente;
 
 
 @SpringBootApplication
@@ -28,7 +28,7 @@ public class SaveMyMoneyApplication {
 
 	@Bean
 	public CommandLineRunner loadData(UtenteRepository utenteRepository, FamigliaRepository famigliaRepository, CategoriaRepository categoriaRepository, MovimentoRepository movimentoRepository) {
-		return (args) -> {
+		return (args) -> {			
 			Famiglia pis = new Famiglia();
 			pis.setNome("pistilli");
 			pis=famigliaRepository.save(pis);
@@ -37,7 +37,7 @@ public class SaveMyMoneyApplication {
 			pet.setNome("petrini");
 			pet=famigliaRepository.save(pet);
 			
-			CapoFamiglia marco = new CapoFamiglia();
+			Utente marco = new Utente();
 			marco.setUsername("Marco");
 			marco.setPassword(passwordEncoder.encode("marco"));
 			marco.setNome("Marco");
@@ -45,7 +45,7 @@ public class SaveMyMoneyApplication {
 			marco.setFamiglia(pis);
 			marco = utenteRepository.save(marco);
 			
-			CapoFamiglia davide = new CapoFamiglia();
+			Utente davide = new Utente();
 			davide.setUsername("Davide");
 			davide.setPassword(passwordEncoder.encode("davide"));
 			davide.setNome("davide");
@@ -53,7 +53,7 @@ public class SaveMyMoneyApplication {
 			davide.setFamiglia(pet);
 			davide = utenteRepository.save(davide);			
 
-			Membro bimbo = new Membro();
+			Utente bimbo = new Utente();
 			bimbo.setUsername("BimboPis");
 			bimbo.setPassword(passwordEncoder.encode("bimbo"));
 			bimbo.setNome("Mark");
@@ -61,7 +61,7 @@ public class SaveMyMoneyApplication {
 			bimbo.setFamiglia(pis);
 			bimbo = utenteRepository.save(bimbo);
 			
-			Membro bimba = new Membro();
+			Utente bimba = new Utente();
 			bimba.setUsername("BimbaPet");
 			bimba.setPassword(passwordEncoder.encode("bimba"));
 			bimba.setNome("Davida");
@@ -71,32 +71,47 @@ public class SaveMyMoneyApplication {
 			
 			Categoria cibo= new Categoria();
 			cibo.setNome("cibo");
-			cibo.setSegno(false);
+			cibo.setSegno(TipoMovimento.USCITA);
 			cibo.setBudget(1000);
 			cibo= categoriaRepository.save(cibo);
 			
 			Categoria stip= new Categoria();
 			stip.setNome("stipendio");
-			stip.setSegno(true);
+			stip.setSegno(TipoMovimento.ENTRATA);
 			stip= categoriaRepository.save(stip);
+			
+			Categoria abiti = new Categoria();
+			abiti.setNome("Vestiti");
+			abiti.setSegno(TipoMovimento.USCITA);
+			abiti=categoriaRepository.save(abiti);
 			
 			Movimento stipe = new Movimento();
 			stipe.setCategoria(stip);
 			stipe.setData(new Date(System.currentTimeMillis() + (20 * 86400000)));
 			stipe.setImporto(2000.50);
-			stipe.setUtente(davide);
-			stipe.setSegno(true);
-			stipe.setNome("Stipendio");
+			stipe.setFamiglia(pis);
 			stipe = movimentoRepository.save(stipe);
 			
 			Movimento food = new Movimento();
 			food.setCategoria(cibo);
 			food.setData(new Date(System.currentTimeMillis() + (20 * 86400000)));
 			food.setImporto(20.50);
-			food.setUtente(davide);
-			food.setSegno(false);
-			food.setNome("FastFood");
+			food.setFamiglia(pet);
 			food = movimentoRepository.save(food);
+			
+			Movimento giacca = new Movimento();
+			giacca.setCategoria(abiti);
+			giacca.setData(new Date(System.currentTimeMillis()+(20*86400000)));
+			giacca.setImporto(54.90);
+			giacca.setFamiglia(pet);
+			giacca = movimentoRepository.save(giacca);
+			
+			Movimento cravatta = new Movimento();
+			cravatta.setCategoria(abiti);
+			cravatta.setData(new Date(System.currentTimeMillis()+(20*86400000)));
+			cravatta.setImporto(50.40);
+			cravatta.setFamiglia(pet);
+			cravatta = movimentoRepository.save(cravatta);
 		};
 	}
 

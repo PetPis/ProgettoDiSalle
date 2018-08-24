@@ -10,13 +10,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import savemymoney.business.SaveMyMoneyService;
 import savemymoney.common.spring.security.JWTTokenUtil;
 import savemymoney.common.spring.security.UserDetailsImpl;
+import savemymoney.domain.Famiglia;
+import savemymoney.domain.Utente;
 
 @RestController
 @RequestMapping("/api")
@@ -30,6 +34,9 @@ public class RESTUtenteController {
 
 	@Autowired
 	private JWTTokenUtil jwtTokenUtil;
+	
+	@Autowired
+	private SaveMyMoneyService savemymoney; 
 
 	@PostMapping("/login")
 	public UtenteResponse login(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) throws AuthenticationException {
@@ -43,7 +50,17 @@ public class RESTUtenteController {
 		response.setHeader(tokenHeader, token);
 
 		// Ritorno l'utente
-		return new UtenteResponse(((UserDetailsImpl) userDetails).getUtente());
+		return new UtenteResponse(((UserDetailsImpl) userDetails).getUtente());		
+	}
+	@PostMapping("/utente/updateprofilo")
+	public UtenteResponse updateProfilo(@RequestBody Utente utente) {
+		Utente nuovoUtente = savemymoney.updateProfilo(utente);		
+		return new UtenteResponse(nuovoUtente);
+	}
+	
+	@GetMapping
+	public Famiglia getFamigliaByUtente (Utente utente) {
+		return utente.getFamiglia();
 	}
 	
 }
