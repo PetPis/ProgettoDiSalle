@@ -17,7 +17,7 @@ public class Famiglia {
 	@Column(name = "ID_FAMIGLIA", nullable = false)
 	private Long id;
 	
-	@Column(name = "NOME", nullable = false)
+	@Column(name = "NOME", nullable = false,unique=true)
 	private String nome;
 	
 	public Long getId() {

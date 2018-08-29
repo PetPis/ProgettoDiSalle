@@ -98,21 +98,21 @@ public class SaveMyMoneyApplication {
 			Movimento food = new Movimento();
 			food.setCategoria(cibo);
 			food.setData(new Date(System.currentTimeMillis() + (20 * 86400000)));
-			food.setImporto(20.50);
+			food.setImporto(-20.50);
 			food.setFamiglia(pet);
 			food = movimentoRepository.save(food);
 			
 			Movimento giacca = new Movimento();
 			giacca.setCategoria(abiti);
 			giacca.setData(new Date(System.currentTimeMillis()+(20*86400000)));
-			giacca.setImporto(54.90);
+			giacca.setImporto(-54.90);
 			giacca.setFamiglia(pet);
 			giacca = movimentoRepository.save(giacca);
 			
 			Movimento cravatta = new Movimento();
 			cravatta.setCategoria(abiti);
 			cravatta.setData(new Date(System.currentTimeMillis()+(20*86400000)));
-			cravatta.setImporto(50.40);
+			cravatta.setImporto(- 50.40);
 			cravatta.setFamiglia(pet);
 			cravatta = movimentoRepository.save(cravatta);
 		};

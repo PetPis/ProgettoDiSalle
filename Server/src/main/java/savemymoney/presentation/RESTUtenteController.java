@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import savemymoney.business.SaveMyMoneyService;
 import savemymoney.common.spring.security.JWTTokenUtil;
 import savemymoney.common.spring.security.UserDetailsImpl;
-import savemymoney.domain.Famiglia;
 import savemymoney.domain.Utente;
 
 @RestController
@@ -58,9 +57,9 @@ public class RESTUtenteController {
 		return new UtenteResponse(nuovoUtente);
 	}
 	
-	@GetMapping
-	public Famiglia getFamigliaByUtente (Utente utente) {
-		return utente.getFamiglia();
+	@PostMapping("/registrazione")
+	public void insertUtente(@RequestBody Utente utente) {
+		savemymoney.insertUtente(utente);
 	}
 	
 }

@@ -44,7 +44,7 @@ public class Utente {
 	private String username;
 	
 	@JsonIgnore
-	@Column(name = "PASSWORD", nullable = false, length = 255)
+	@Column(name = "PASSWORD", nullable = true, length = 255)
 	private String password;
 	
 	@ManyToOne

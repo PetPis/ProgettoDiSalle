@@ -23,7 +23,7 @@ public class RESTFamigliaController {
 	@Autowired
 	private SaveMyMoneyService service;
 	
-	@GetMapping("/{idFamiglia}")
+	@GetMapping("/idFam/{idFamiglia}")
 	public Famiglia findFamigliaById(@PathVariable long idFamiglia) {
 		return service.findFamigliaById(idFamiglia);
 	}
@@ -38,14 +38,13 @@ public class RESTFamigliaController {
 		service.UpdateFamiglia(famiglia);;
 	}
 	
-	@DeleteMapping("/{idFamiglia}")
+	@DeleteMapping("/idFam/{idFamiglia}")
 	public void deleteFamiglia( @PathVariable long idFamiglia) {
 		service.DeleteFamigliaById(idFamiglia);
 	}
 	
-	@GetMapping()
-	public Famiglia getFamigliaByUtente () {
-		Utente utente= Utility.getUtente();
-		return service.findFamigliaByUtente(utente);
+	@GetMapping("/nomeFam/{nomeFamiglia}")
+	public Famiglia findFamigliaByNome(@PathVariable String nomeFamiglia) {
+		return service.getFamigliaByNomeFamiglia(nomeFamiglia);
 	}
 }

@@ -141,9 +141,14 @@ public class SaveMyMoneyServiceImpl implements SaveMyMoneyService {
 	}
 
 	@Override
-	public Famiglia findFamigliaByUtente(Utente utente) throws BusinessException {
-		Long id = utente.getId();
-		return utenteRepository.findFamigliaById(id);
+	public void insertUtente(Utente utente) throws BusinessException {
+		utenteRepository.save(utente);
+		
+	}
+
+	@Override
+	public Famiglia getFamigliaByNomeFamiglia(String nome) throws BusinessException {
+		return famigliaRepository.findByNome(nome);
 	}
 
 }

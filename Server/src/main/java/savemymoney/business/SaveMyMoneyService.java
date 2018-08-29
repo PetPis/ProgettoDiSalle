@@ -41,8 +41,6 @@ public interface SaveMyMoneyService {
 	void DeleteFamigliaById(Long id) throws BusinessException;
 	
 	void InserFamiiglia(Famiglia famiglia) throws BusinessException;
-	
-	Famiglia findFamigliaByUtente(Utente utente) throws BusinessException;
 
 	Utente updateProfilo(Utente utente) throws BusinessException;
 	
@@ -51,4 +49,8 @@ public interface SaveMyMoneyService {
 	void deleteMovimento(Long id) throws BusinessException;
 	
 	void updateMovimento(Movimento movimento) throws BusinessException;
+	
+	void insertUtente(Utente utente) throws BusinessException;
+	
+	Famiglia getFamigliaByNomeFamiglia(String Nome) throws BusinessException;
 }

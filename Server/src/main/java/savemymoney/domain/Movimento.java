@@ -24,14 +24,14 @@ public class Movimento {
 	private Long id;
 	
 	
-	@Column(name = "DATA", nullable = false)
+	@Column(name = "DATA", nullable = true)
 	private Date data;
 	
 	@Column(name = "IMPORTO", nullable = false)
 	private double importo;
 	
 	@ManyToOne
-	@JoinColumn(name = "FAMIGLiA_IDFAMIGLIA", nullable = false)
+	@JoinColumn(name = "FAMIGLIA_IDFAMIGLIA", nullable = false)
 	private Famiglia famiglia;
 	
 	@ManyToOne
