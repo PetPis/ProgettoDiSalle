@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import savemymoney.business.SaveMyMoneyService;
-import savemymoney.common.Utility;
 import savemymoney.domain.Categoria;
-import savemymoney.domain.Movimento;
-import savemymoney.domain.Utente;
 
 @RestController
 @RequestMapping("/api/categorie")
