@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import savemymoney.business.SaveMyMoneyService;
 import savemymoney.common.spring.security.JWTTokenUtil;
@@ -23,7 +24,10 @@ import savemymoney.domain.Utente;
 @RestController
 @RequestMapping("/api")
 public class RESTUtenteController {
-
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@Value("${jwt.header}")
 	private String tokenHeader;
 
@@ -57,8 +61,14 @@ public class RESTUtenteController {
 	}
 	
 	@PostMapping("/registrazione")
-	public void insertUtente(@RequestBody Utente utente) {
-		savemymoney.insertUtente(utente);
+	public void insertUtente(@RequestBody UtenteRegistrazione utente) {
+		Utente regUser = new Utente();
+		regUser.setNome(utente.getNome());
+		regUser.setCognome(utente.getCognome());
+		regUser.setUsername(utente.getUsername());
+		regUser.setFamiglia(utente.getFamiglia());
+		regUser.setPassword(passwordEncoder.encode(utente.getPassword()));
+		savemymoney.insertUtente(regUser);
 	}
 	
 }

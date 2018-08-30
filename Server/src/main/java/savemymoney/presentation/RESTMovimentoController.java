@@ -26,6 +26,14 @@ public class RESTMovimentoController {
 	@Autowired
 	private SaveMyMoneyService service;
 	
+	@GetMapping("/list/{idCategoria}")
+	public List<Movimento> findAllMovByCategoriaId(@PathVariable Long idCategoria){
+		return service.findMovimentiByCategoriaId(idCategoria);
+	}
+	@DeleteMapping("/delete/{idCategoria")
+	public void deleteMovimentiWhereCategoria(@PathVariable Long idCategoria) {
+		service.deleteMovimenti(idCategoria);
+	}
 	
 	@GetMapping
 	public List<Movimento> findAllEntrate(){

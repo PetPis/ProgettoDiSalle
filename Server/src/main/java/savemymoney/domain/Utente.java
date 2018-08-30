@@ -49,14 +49,7 @@ public class Utente {
 	
 	@ManyToOne
 	@JoinColumn(name = "FAMIGLIA_IDFAMIGLIA", nullable = false)
-	private Famiglia famiglia;
-	
-	@ManyToMany
-	@JoinTable(name="CATEGORIA_HAS_UTENTE",
-	    joinColumns={@JoinColumn(name="UTENTE_IDUTENTE")},
-	    inverseJoinColumns={@JoinColumn(name="CATEGORIA_IDCATEGORIA")})
-	private Set<Categoria> categorieUtente = new HashSet<>();
-	
+	private Famiglia famiglia;	
 	
 	public Long getId() {
 		return id;
@@ -102,13 +95,5 @@ public class Utente {
 
 	public void setFamiglia(Famiglia famiglia) {
 		this.famiglia = famiglia;
-	}
-	
-	public Set<Categoria> getCategorieUtente() {
-		return categorieUtente;
-	}
-	
-	public void setCategorieUtente(Set<Categoria> categorieUtente) {
-		this.categorieUtente = categorieUtente;
 	}
 }

@@ -10,4 +10,6 @@ import savemymoney.domain.Movimento;
 public interface MovimentoRepository extends JpaRepository<Movimento, Long> {
 	
 	List<Movimento> findAllMovimentiByFamigliaId(Long idFamiglia, Sort sort);
+	List<Movimento> findAllMovimentiByCategoriaId(Long idCategoria);
+	void deleteMovimentiByCategoria(Long idCategoria);
 }

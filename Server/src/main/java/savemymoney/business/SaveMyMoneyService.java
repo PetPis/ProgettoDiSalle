@@ -1,6 +1,7 @@
 package savemymoney.business;
 
 import java.util.List;
+import java.util.Set;
 
 import savemymoney.business.BusinessException;
 import savemymoney.domain.Categoria;
@@ -53,4 +54,10 @@ public interface SaveMyMoneyService {
 	void insertUtente(Utente utente) throws BusinessException;
 	
 	Famiglia getFamigliaByNomeFamiglia(String Nome) throws BusinessException;
+	
+	List<Movimento> findMovimentiByCategoriaId(Long id) throws BusinessException;
+	
+	void deleteMovimenti(Long cat) throws BusinessException;
+	
+	//public Set<Categoria> findCategorieByFamiglia(Famiglia famiglia) throws BusinessException;
 }

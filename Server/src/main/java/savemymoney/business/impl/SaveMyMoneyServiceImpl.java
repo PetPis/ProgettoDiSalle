@@ -1,6 +1,7 @@
 package savemymoney.business.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
@@ -150,5 +151,20 @@ public class SaveMyMoneyServiceImpl implements SaveMyMoneyService {
 	public Famiglia getFamigliaByNomeFamiglia(String nome) throws BusinessException {
 		return famigliaRepository.findByNome(nome);
 	}
+
+	@Override
+	public List<Movimento> findMovimentiByCategoriaId(Long id) throws BusinessException {
+		return movimentoRepository.findAllMovimentiByCategoriaId(id);
+	}
+	
+	@Override
+	public void deleteMovimenti(Long cat) throws BusinessException{
+		movimentoRepository.deleteMovimentiByCategoria(cat);
+	}
+	
+	/*@Override
+	public Set<Categoria> findCategorieByFamiglia(Famiglia famiglia) throws BusinessException{
+		return categoriaRepository.findCategorieByFamiglia(famiglia);
+	}*/
 
 }

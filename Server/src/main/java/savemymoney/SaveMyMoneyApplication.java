@@ -1,6 +1,8 @@
 package savemymoney;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -9,11 +11,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import savemymoney.business.impl.repositories.CategoriaFamigliaRepository;
 import savemymoney.business.impl.repositories.CategoriaRepository;
 import savemymoney.business.impl.repositories.FamigliaRepository;
 import savemymoney.business.impl.repositories.MovimentoRepository;
 import savemymoney.business.impl.repositories.UtenteRepository;
 import savemymoney.domain.Categoria;
+import savemymoney.domain.Categoria_has_Famiglia;
+import savemymoney.domain.Categoria_has_Famiglia.Id;
 import savemymoney.domain.Famiglia;
 import savemymoney.domain.Movimento;
 import savemymoney.domain.TipoMovimento;
@@ -27,9 +32,25 @@ public class SaveMyMoneyApplication {
 	private PasswordEncoder passwordEncoder;
 
 	@Bean
-	public CommandLineRunner loadData(UtenteRepository utenteRepository, FamigliaRepository famigliaRepository, CategoriaRepository categoriaRepository, MovimentoRepository movimentoRepository) {
+	public CommandLineRunner loadData(UtenteRepository utenteRepository, FamigliaRepository famigliaRepository, CategoriaRepository categoriaRepository, MovimentoRepository movimentoRepository,CategoriaFamigliaRepository catFamRepo) {
 		return (args) -> {	
 			
+			
+			Categoria cibo= new Categoria();
+			cibo.setNome("cibo");
+			cibo.setSegno(TipoMovimento.USCITA);
+		
+			cibo= categoriaRepository.save(cibo);
+			
+			Categoria stip= new Categoria();
+			stip.setNome("stipendio");
+			stip.setSegno(TipoMovimento.ENTRATA);
+			stip= categoriaRepository.save(stip);
+			
+			Categoria abiti = new Categoria();
+			abiti.setNome("Vestiti");
+			abiti.setSegno(TipoMovimento.USCITA);
+			abiti=categoriaRepository.save(abiti);
 			
 			
 			Famiglia pis = new Famiglia();
@@ -39,6 +60,31 @@ public class SaveMyMoneyApplication {
 			Famiglia pet = new Famiglia();
 			pet.setNome("petrini");
 			pet=famigliaRepository.save(pet);
+			
+			Categoria_has_Famiglia PisAbiti=new Categoria_has_Famiglia();
+			Id idPis = new Id(abiti.getId(),pis.getId());
+			PisAbiti.setId(idPis);
+			PisAbiti.setBudget(5200);
+			PisAbiti= catFamRepo.save(PisAbiti);
+			
+			Categoria_has_Famiglia PisStip=new Categoria_has_Famiglia();
+			Id idPist = new Id(stip.getId(),pis.getId());
+			PisStip.setId(idPist);
+			PisStip= catFamRepo.save(PisStip);
+			
+			Categoria_has_Famiglia PetAbiti=new Categoria_has_Famiglia();
+			Id idPet = new Id(abiti.getId(),pet.getId());
+			PetAbiti.setId(idPet);
+			PetAbiti.setBudget(5200);
+			PetAbiti= catFamRepo.save(PetAbiti);
+			
+			
+			Categoria_has_Famiglia PetStip=new Categoria_has_Famiglia();
+			Id idPetr = new Id(stip.getId(),pet.getId());
+			PetStip.setId(idPetr);
+			PetStip= catFamRepo.save(PetStip);
+			
+			
 			
 			Utente marco = new Utente();
 			marco.setUsername("Marco");
@@ -71,22 +117,6 @@ public class SaveMyMoneyApplication {
 			bimba.setCognome("Petrini");
 			bimba.setFamiglia(pet);
 			bimba = utenteRepository.save(bimba);
-			
-			Categoria cibo= new Categoria();
-			cibo.setNome("cibo");
-			cibo.setSegno(TipoMovimento.USCITA);
-			cibo.setBudget(1000);
-			cibo= categoriaRepository.save(cibo);
-			
-			Categoria stip= new Categoria();
-			stip.setNome("stipendio");
-			stip.setSegno(TipoMovimento.ENTRATA);
-			stip= categoriaRepository.save(stip);
-			
-			Categoria abiti = new Categoria();
-			abiti.setNome("Vestiti");
-			abiti.setSegno(TipoMovimento.USCITA);
-			abiti=categoriaRepository.save(abiti);
 			
 			Movimento stipe = new Movimento();
 			stipe.setCategoria(stip);
