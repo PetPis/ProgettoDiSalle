@@ -11,11 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import savemymoney.business.BusinessException;
 import savemymoney.business.SaveMyMoneyService;
+import savemymoney.business.impl.repositories.CategoriaFamigliaRepository;
 import savemymoney.business.impl.repositories.CategoriaRepository;
 import savemymoney.business.impl.repositories.FamigliaRepository;
 import savemymoney.business.impl.repositories.MovimentoRepository;
 import savemymoney.business.impl.repositories.UtenteRepository;
 import savemymoney.domain.Categoria;
+import savemymoney.domain.Categoria_has_Famiglia;
 import savemymoney.domain.Famiglia;
 import savemymoney.domain.Movimento;
 import savemymoney.domain.Utente;
@@ -35,6 +37,8 @@ public class SaveMyMoneyServiceImpl implements SaveMyMoneyService {
 
 	@Autowired
 	private FamigliaRepository famigliaRepository;
+	
+	@Autowired CategoriaFamigliaRepository CategoriaFamRepository;
 
 	@Override
 	public Utente findUtenteByUsername(String username) throws BusinessException {
@@ -162,9 +166,9 @@ public class SaveMyMoneyServiceImpl implements SaveMyMoneyService {
 		movimentoRepository.deleteMovimentiByCategoria(cat);
 	}
 	
-	/*@Override
-	public Set<Categoria> findCategorieByFamiglia(Famiglia famiglia) throws BusinessException{
-		return categoriaRepository.findCategorieByFamiglia(famiglia);
-	}*/
+	@Override
+	public List<Categoria> findCatFamByFamiglia(Famiglia famiglia) throws BusinessException{
+		return CategoriaFamRepository.findCategoriaByFamiglia(famiglia);
+	}
 
 }

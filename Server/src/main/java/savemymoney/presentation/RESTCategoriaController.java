@@ -31,11 +31,7 @@ public class RESTCategoriaController {
 		return service.findCategoriaById(idCategoria);
 	}
 	
-	/*@GetMapping("/famiglia")
-	public Set<Categoria> findAllCatByFam(){
-		Utente utente = Utility.getUtente();
-		return service.findCategorieByFamiglia(utente.getFamiglia());
-	}*/
+	//TODO: query per lista categorie di una famiglia ( usare Cat_Has_Fam)
 	
 	@GetMapping
 	public List<Categoria> findAllCategorie(){

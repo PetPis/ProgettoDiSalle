@@ -18,7 +18,6 @@ import savemymoney.business.impl.repositories.MovimentoRepository;
 import savemymoney.business.impl.repositories.UtenteRepository;
 import savemymoney.domain.Categoria;
 import savemymoney.domain.Categoria_has_Famiglia;
-import savemymoney.domain.Categoria_has_Famiglia.Id;
 import savemymoney.domain.Famiglia;
 import savemymoney.domain.Movimento;
 import savemymoney.domain.TipoMovimento;
@@ -61,28 +60,24 @@ public class SaveMyMoneyApplication {
 			pet.setNome("petrini");
 			pet=famigliaRepository.save(pet);
 			
-			Categoria_has_Famiglia PisAbiti=new Categoria_has_Famiglia();
-			Id idPis = new Id(abiti.getId(),pis.getId());
-			PisAbiti.setId(idPis);
-			PisAbiti.setBudget(5200);
-			PisAbiti= catFamRepo.save(PisAbiti);
 			
 			Categoria_has_Famiglia PisStip=new Categoria_has_Famiglia();
-			Id idPist = new Id(stip.getId(),pis.getId());
-			PisStip.setId(idPist);
+			PisStip.setCategoria(stip);
+			PisStip.setFamiglia(pis);
 			PisStip= catFamRepo.save(PisStip);
 			
 			Categoria_has_Famiglia PetAbiti=new Categoria_has_Famiglia();
-			Id idPet = new Id(abiti.getId(),pet.getId());
-			PetAbiti.setId(idPet);
+			PetAbiti.setCategoria(abiti);
+			PetAbiti.setFamiglia(pet);
 			PetAbiti.setBudget(5200);
 			PetAbiti= catFamRepo.save(PetAbiti);
 			
 			
-			Categoria_has_Famiglia PetStip=new Categoria_has_Famiglia();
-			Id idPetr = new Id(stip.getId(),pet.getId());
-			PetStip.setId(idPetr);
-			PetStip= catFamRepo.save(PetStip);
+			Categoria_has_Famiglia PetCibo=new Categoria_has_Famiglia();
+			PetCibo.setCategoria(cibo);
+			PetCibo.setFamiglia(pet);
+			PetCibo.setBudget(2000);
+			PetCibo= catFamRepo.save(PetCibo);
 			
 			
 			
