@@ -1,0 +1,47 @@
+<ion-header>
+
+  <ion-navbar hide-tabs>
+    <ion-title>
+      <h1 [hidden]="!inserimento">{{'ADD_FLOW'| translate}}</h1>
+      <h1 [hidden]="inserimento">{{'UPDATE_FLOW'| translate}}</h1>
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #MovimentoForm="ngForm">
+    <ion-list no-lines>
+      <!-- nome -->
+      <ion-item>
+        <ion-label>{{'CATEGORIA'| translate}}</ion-label>
+        <ion-select name="nome" [(ngModel)]="movimento.categoria" #nome="ngModel" required
+        okText="{{ 'SAVE_BUTTON' | translate }}" cancelText="{{ 'CANCEL_BUTTON' | translate }}">
+            <ion-option *ngFor="let c of categorie" [value]="c">{{c.nome}}</ion-option>
+          </ion-select>
+      </ion-item>
+      <p ion-text [hidden]="nome.valid" color="danger" padding-left>
+          {{ 'CATEGORY_REQUIRED' | translate }}
+      </p>
+      <!-- importo -->
+      <ion-item>
+        <ion-label>{{'IMPORTO'|translate}}</ion-label>
+        <ion-input type="number" #importo="ngModel" name="importo" [(ngModel)]="movimento.importo" required></ion-input>
+      </ion-item>
+      <p ion-text [hidden]="importo.valid" color="danger" padding-left>
+          {{ 'IMPORTO_REQUIRED' | translate }}
+      </p>
+    </ion-list>
+    <!-- Submit -->
+    <ion-row responsive-sm>
+      <ion-col>
+        <button ion-button (click)="onSubmit(MovimentoForm)" type="submit" [disabled]="!MovimentoForm.form.valid" block>{{ 'SAVE_BUTTON' | translate }}</button>
+      </ion-col>
+      <ion-col>
+        <button [hidden]="!inserimento" ion-button navPop block>{{'CANCEL_BUTTON'|translate}}</button>
+        <button [hidden]="inserimento" (click)="onDelete()" ion-button block>{{'DELETE_BUTTON'| translate}}</button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

@@ -1,0 +1,46 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{'PROFILO_PAGE'|translate}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid *ngIf="utente">
+    <ion-row>
+      <ion-col>
+        <ion-label>{{'USERNAME'|translate}}:</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-label>{{utente.username}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label>{{'NOME'|translate}}:</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-label>{{utente.nome}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label>{{'COGNOME'|translate}}:</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-label>{{utente.cognome}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label>{{'FAMIGLIA'|translate}}:</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-label>{{utente.famiglia.nome}}</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

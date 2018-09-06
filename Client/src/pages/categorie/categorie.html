@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar>
+    <ion-row>
+      <ion-col col-11>
+        <ion-title class="titleWithButton">{{'CATEGORIE_TAB'|translate}}</ion-title>
+      </ion-col>
+      <ion-col>
+        <button ion-button (click)="add()" class="Bottone">
+          <ion-icon name="add-circle" ></ion-icon>
+        </button>   
+    </ion-col>
+    </ion-row>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list >
+    <ion-list-header>{{'POSITIVO' | translate}}</ion-list-header>
+    <ion-list *ngFor="let c of categorie" >
+      <ion-item *ngIf="c.categoria.segno == 'ENTRATA'" clear>
+        <ion-row>
+          <ion-col col-11>
+            <button ion-button block (click)="update(c)">{{c.categoria.nome}}</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button (click)="delete(c)">
+              <ion-icon name="close"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+    <ion-list-header>{{'NEGATIVO' | translate}}</ion-list-header>
+    <ion-list *ngFor="let f of categorie" >
+      <ion-item *ngIf="f.categoria.segno == 'USCITA'" clear>
+        <ion-row>
+          <ion-col col-11>
+            <button ion-button block (click)="update(f)">{{f.categoria.nome}}</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button (click)="delete(f)">
+              <ion-icon name="close"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+  </ion-list>
+</ion-content>
