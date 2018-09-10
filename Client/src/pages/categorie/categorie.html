@@ -1,11 +1,11 @@
 <ion-header>
   <ion-navbar>
     <ion-row>
-      <ion-col col-11>
+      <ion-col col-10 offset-1>
         <ion-title class="titleWithButton">{{'CATEGORIE_TAB'|translate}}</ion-title>
       </ion-col>
       <ion-col>
-        <button ion-button (click)="add()" class="Bottone">
+        <button ion-button (click)="add()" class="Bottone" outline>
           <ion-icon name="add-circle" ></ion-icon>
         </button>   
     </ion-col>
@@ -14,16 +14,19 @@
 </ion-header>
 
 <ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-list >
     <ion-list-header>{{'POSITIVO' | translate}}</ion-list-header>
     <ion-list *ngFor="let c of categorie" >
-      <ion-item *ngIf="c.categoria.segno == 'ENTRATA'" clear>
+      <ion-item *ngIf="c.categoria.segno == true" clear>
         <ion-row>
-          <ion-col col-11>
-            <button ion-button block (click)="update(c)">{{c.categoria.nome}}</button>
+          <ion-col col-10>
+            <button ion-button block outline (click)="update(c)" class="buttonList">{{c.categoria.nome}}</button>
           </ion-col>
-          <ion-col>
-            <button ion-button (click)="delete(c)">
+          <ion-col col-2>
+            <button ion-button (click)="delete(c)" outline block>
               <ion-icon name="close"></ion-icon>
             </button>
           </ion-col>
@@ -32,13 +35,13 @@
     </ion-list>
     <ion-list-header>{{'NEGATIVO' | translate}}</ion-list-header>
     <ion-list *ngFor="let f of categorie" >
-      <ion-item *ngIf="f.categoria.segno == 'USCITA'" clear>
+      <ion-item *ngIf="f.categoria.segno == false" clear>
         <ion-row>
-          <ion-col col-11>
-            <button ion-button block (click)="update(f)">{{f.categoria.nome}}</button>
+          <ion-col col-10>
+            <button ion-button block outline (click)="update(f)" class="buttonList">{{f.categoria.nome}}</button>
           </ion-col>
-          <ion-col>
-            <button ion-button (click)="delete(f)">
+          <ion-col col-2>
+            <button ion-button (click)="delete(f)" outline block>
               <ion-icon name="close"></ion-icon>
             </button>
           </ion-col>

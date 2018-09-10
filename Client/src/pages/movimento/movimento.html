@@ -2,8 +2,8 @@
 
   <ion-navbar hide-tabs>
     <ion-title>
-      <h1 [hidden]="!inserimento">{{'ADD_FLOW'| translate}}</h1>
-      <h1 [hidden]="inserimento">{{'UPDATE_FLOW'| translate}}</h1>
+      <h3 [hidden]="!inserimento">{{'ADD_FLOW'| translate}}</h3>
+      <h3 [hidden]="inserimento">{{'UPDATE_FLOW'| translate}}</h3>
     </ion-title>
   </ion-navbar>
 
@@ -36,11 +36,11 @@
     <!-- Submit -->
     <ion-row responsive-sm>
       <ion-col>
-        <button ion-button (click)="onSubmit(MovimentoForm)" type="submit" [disabled]="!MovimentoForm.form.valid" block>{{ 'SAVE_BUTTON' | translate }}</button>
+        <button ion-button (click)="onSubmit(MovimentoForm)" type="submit" [disabled]="!MovimentoForm.form.valid" block outline>{{ 'SAVE_BUTTON' | translate }}</button>
       </ion-col>
       <ion-col>
-        <button [hidden]="!inserimento" ion-button navPop block>{{'CANCEL_BUTTON'|translate}}</button>
-        <button [hidden]="inserimento" (click)="onDelete()" ion-button block>{{'DELETE_BUTTON'| translate}}</button>
+        <button [hidden]="!inserimento" ion-button navPop block outline>{{'CANCEL_BUTTON'|translate}}</button>
+        <button [hidden]="inserimento" (click)="onDelete()" ion-button block outline>{{'DELETE_BUTTON'| translate}}</button>
       </ion-col>
     </ion-row>
   </form>

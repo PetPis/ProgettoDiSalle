@@ -40,12 +40,10 @@ export class MovimentoPage {
 
   onSubmit(form: NgForm){
     if(form.valid){
-      console.log(this.movimento.categoria.segno);
       //Setto importo negativo per le uscite
-      if(this.movimento.categoria.segno == "USCITA"){
+      if(this.movimento.categoria.segno == false){
         this.movimento.importo *= -1;
       }
-      console.log(this.movimento.importo);
       if(this.inserimento){
         this.movimentoService.createMovimento(this.movimento).subscribe(() =>{
           this.navCtrl.pop()
@@ -55,7 +53,6 @@ export class MovimentoPage {
           this.navCtrl.pop();
         });
       }
-      console.log(this.movimento);
     }
   }
   onDelete(){

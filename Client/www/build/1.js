@@ -46,18 +46,12 @@ var CategoriaPageModule = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Categoria; });
-/* unused harmony export SEGNO_ENTRATA */
-/* unused harmony export SEGNO_USCITA */
-/* unused harmony export SEGNO */
 var Categoria = /** @class */ (function () {
     function Categoria() {
     }
     return Categoria;
 }());
 
-var SEGNO_ENTRATA = "ENTRATA";
-var SEGNO_USCITA = "USCITA";
-var SEGNO = [SEGNO_ENTRATA, SEGNO_USCITA];
 //# sourceMappingURL=categoria.model.js.map
 
 /***/ }),
@@ -112,15 +106,19 @@ var CategoriaPage = /** @class */ (function () {
         this.famigliService = famigliService;
         this.catFamService = catFamService;
         this.categoriaService = categoriaService;
+        //booleano per update o create
         this.inserimento = false;
+        // dato da passare al server
         this.c = new __WEBPACK_IMPORTED_MODULE_3__model_catFam_model__["a" /* CatFam */]();
+        this.segni = false;
+        //categoria per controllo esistenza sul db
         this.cat = new __WEBPACK_IMPORTED_MODULE_2__model_categoria_model__["a" /* Categoria */]();
-        this.segni = ['ENTRATA', 'USCITA'];
     }
     CategoriaPage.prototype.ionViewDidLoad = function () {
         var _this = this;
         console.log('ionViewDidLoad CategoriaPage');
         this.inserimento = this.navParams.get("inserimento");
+        this.c = this.navParams.get("c");
         //prendo i dati della famiglia
         this.famigliService.getFamiglia().subscribe(function (data) {
             _this.c.famiglia = data;
@@ -129,31 +127,43 @@ var CategoriaPage = /** @class */ (function () {
     CategoriaPage.prototype.onSubmit = function (form) {
         var _this = this;
         if (form.valid) {
-            //se il budget non è impostato lo setto a 0
-            if (!this.c.budget) {
-                this.c.budget = 0;
+            //valore budget per campo vuoto
+            if (!this.budgetCat) {
+                this.budgetCat = 0;
             }
-            //prendo i dati della categoria
-            this.c.categoria = this.cat;
-            console.log(this.cat.nome);
-            this.categoriaService.findByNome(this.cat.nome).subscribe(function (data) {
-                console.log(data);
+            //prendo i dati dal form
+            this.c.categoria.nome = this.nomeCat;
+            this.c.categoria.segno = this.segni;
+            this.c.budget = this.budgetCat;
+            //controllo se la categoria esiste sul DB
+            this.categoriaService.findByNome(this.nomeCat).subscribe(function (data) {
                 if (!data) {
+                    //se non esiste creo una nuova Categoria
                     console.log("Categoria non esistente");
-                    _this.categoriaService.createCategoria(_this.cat).subscribe(function () { });
+                    _this.categoriaService.createCategoria(_this.c.categoria).subscribe(function () { });
+                    //faccio di nuovo la query perchè non ho l'id della nuova categoria
+                    _this.categoriaService.findByNome(_this.nomeCat).subscribe(function (data) {
+                        _this.c.categoria = data;
+                    });
                 }
-                _this.catFamService.insert(_this.c).subscribe(function () { });
+                else {
+                    console.log("Categoria esistente");
+                    _this.c.categoria = data;
+                }
             });
+            console.log(this.c);
+            //a questo punto la categoria è nel DB, posso inserire CatFam
+            this.catFamService.insert(this.c).subscribe(function () { });
         }
     };
     CategoriaPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-categoria',template:/*ion-inline-start:"C:\Users\Marco\Desktop\ccc\src\pages\categoria\categoria.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>\n      <h1 [hidden]="!inserimento">{{\'ADD_CAT\'| translate}}</h1>\n      <h1 [hidden]="inserimento">{{\'UPDATE_CAT\'| translate}}</h1>\n    </ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <form #CategoriaForm="ngForm">\n    <ion-list no-lines>\n      <!-------Nome Categoria -------->\n      <ion-item>\n        <ion-label>{{\'CATEGORIA\'|translate}}</ion-label>\n        <ion-input type="text" [(ngModel)]="cat.nome" #nome="ngModel" name="nome" required></ion-input>\n      </ion-item>\n      <p ion-text color="danger" [hidden]="nome.valid" padding-left>{{\'CATEGORY_REQUIRED\'|translate}}</p>\n\n      <!------Segno Categoria ------>\n      <ion-item>\n        <ion-label>{{\'SEGNO\'|translate}}</ion-label>\n        <ion-select name="segno" [(ngModel)]="cat.segno" #segno="ngModel" required\n        okText="{{ \'SAVE_BUTTON\' | translate }}" cancelText="{{ \'CANCEL_BUTTON\' | translate }}">\n          <ion-option *ngFor="let s of segni" [value]="s" >{{s}}</ion-option>\n        </ion-select>\n      </ion-item>\n      <p ion-text color="danger" [hidden]="segno.valid" padding-left>{{\'SEGNO_REQUIRED\'|translate}}</p>\n      <ion-item>\n        <ion-label>Budget</ion-label>\n        <ion-input type="number" [(ngModel)]="c.budget" #budget="ngModel" name="budget"></ion-input>\n      </ion-item>\n      <p ion-text color="danger" [hidden]="budget.valid" padding-left>{{\'BUDGET_REQUIRED\'|translate}}</p>\n    </ion-list>\n    <!-- Submit -->\n    <ion-row responsive-sm>\n        <ion-col>\n          <button ion-button (click)="onSubmit(CategoriaForm)" type="submit" [disabled]="!CategoriaForm.form.valid" block>{{ \'SAVE_BUTTON\' | translate }}</button>\n        </ion-col>\n        <ion-col>\n          <button [hidden]="!inserimento" ion-button navPop block>{{\'CANCEL_BUTTON\'|translate}}</button>\n          <button [hidden]="inserimento" (click)="onDelete()" ion-button block>{{\'DELETE_BUTTON\'| translate}}</button>\n        </ion-col>\n      </ion-row>\n  </form>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\Marco\Desktop\ccc\src\pages\categoria\categoria.html"*/,
+            selector: 'page-categoria',template:/*ion-inline-start:"C:\Users\Marco\Desktop\ccc\src\pages\categoria\categoria.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>\n      <h3 [hidden]="!inserimento">{{\'ADD_CAT\'| translate}}</h3>\n      <h3 [hidden]="inserimento">{{\'UPDATE_CAT\'| translate}}</h3>\n    </ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding class="primary-bg">\n  <form #CategoriaForm="ngForm">\n    <ion-list no-lines>\n      <!-------Nome Categoria -------->\n      <ion-item>\n        <ion-label>{{\'CATEGORIA\'|translate}}</ion-label>\n        <ion-input type="text" [(ngModel)]="nomeCat" #nome="ngModel" name="nome" required></ion-input>\n      </ion-item>\n      <p ion-text color="danger" [hidden]="nome.valid" padding-left>{{\'CATEGORY_REQUIRED\'|translate}}</p>\n\n      <!------Segno Categoria ------>\n      <ion-item>\n        <ion-label>{{\'SEGNO\'|translate}}</ion-label>\n        <ion-select name="segno" [(ngModel)]="segni" #segno="ngModel" required\n        okText="{{ \'SAVE_BUTTON\' | translate }}" cancelText="{{ \'CANCEL_BUTTON\' | translate }}" class="buttonCss">\n          <ion-option  [value]="false" >{{\'NEGATIVO\'|translate}}</ion-option>\n          <ion-option [value]="true">{{\'POSITIVO\'|translate}}</ion-option>\n        </ion-select>\n      </ion-item>\n      <p ion-text color="danger" [hidden]="segno.valid" padding-left>{{\'SEGNO_REQUIRED\'|translate}}</p>\n      <ion-item>\n        <ion-label>Budget</ion-label>\n        <ion-input type="number" [(ngModel)]="budgetCat" #budget="ngModel" name="budget"></ion-input>\n      </ion-item>\n      <p ion-text color="danger" [hidden]="budget.valid" padding-left>{{\'BUDGET_REQUIRED\'|translate}}</p>\n    </ion-list>\n    <!-- Submit -->\n    <ion-row responsive-sm>\n        <ion-col>\n          <button ion-button class="button"(click)="onSubmit(CategoriaForm)" type="submit" [disabled]="!CategoriaForm.form.valid" block>{{ \'SAVE_BUTTON\' | translate }}</button>\n        </ion-col>\n        <ion-col>\n          <button class="button" ion-button navPop block>{{\'CANCEL_BUTTON\'|translate}}</button>\n        </ion-col>\n      </ion-row>\n  </form>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\Marco\Desktop\ccc\src\pages\categoria\categoria.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */], __WEBPACK_IMPORTED_MODULE_4__services_famiglia_service__["a" /* FamigliaService */],
-            __WEBPACK_IMPORTED_MODULE_5__services_catFam_service__["a" /* CatFamService */], __WEBPACK_IMPORTED_MODULE_6__services_categoria_service__["a" /* CategoriaService */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__services_famiglia_service__["a" /* FamigliaService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_famiglia_service__["a" /* FamigliaService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__services_catFam_service__["a" /* CatFamService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__services_catFam_service__["a" /* CatFamService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_6__services_categoria_service__["a" /* CategoriaService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__services_categoria_service__["a" /* CategoriaService */]) === "function" && _e || Object])
     ], CategoriaPage);
     return CategoriaPage;
+    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=categoria.js.map

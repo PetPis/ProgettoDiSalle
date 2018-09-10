@@ -9,7 +9,7 @@
 
 <ion-content padding>
   <!------- PROFILO------->
-  <button ion-button block (click)="profilo()">{{'PROFILO' | translate}}</button>
+  <button ion-button block outline (click)="profilo()">{{'PROFILO' | translate}}</button>
   <!------- VALUTA & LINGUA------->
   <ion-item>
     <ion-label>{{ 'LANGUAGE_CURR' | translate }}</ion-label>
@@ -18,7 +18,7 @@
     </ion-select>
   </ion-item>
   <!------- INFO------->
-  <button ion-button block (click)="info()">Info</button>
+  <button ion-button block class="alignLeft" outline (click)="info()">Info</button>
   <!------- LOGOUT------->
-  <button ion-button block (click)="logout()">{{'LOGOUT'| translate}}</button>
+  <button ion-button block outline class="alignLeft" (click)="logout()">{{'LOGOUT'| translate}}</button>
 </ion-content>

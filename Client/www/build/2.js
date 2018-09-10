@@ -1,6 +1,6 @@
 webpackJsonp([2],{
 
-/***/ 311:
+/***/ 310:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MovimentoPageModule", function() { return MovimentoPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__movimento__ = __webpack_require__(325);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__movimento__ = __webpack_require__(323);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_ngx_translate_core__ = __webpack_require__(109);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -56,7 +56,7 @@ var Movimento = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 325:
+/***/ 323:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -111,12 +111,10 @@ var MovimentoPage = /** @class */ (function () {
     MovimentoPage.prototype.onSubmit = function (form) {
         var _this = this;
         if (form.valid) {
-            console.log(this.movimento.categoria.segno);
             //Setto importo negativo per le uscite
-            if (this.movimento.categoria.segno == "USCITA") {
+            if (this.movimento.categoria.segno == false) {
                 this.movimento.importo *= -1;
             }
-            console.log(this.movimento.importo);
             if (this.inserimento) {
                 this.movimentoService.createMovimento(this.movimento).subscribe(function () {
                     _this.navCtrl.pop();
@@ -127,7 +125,6 @@ var MovimentoPage = /** @class */ (function () {
                     _this.navCtrl.pop();
                 });
             }
-            console.log(this.movimento);
         }
     };
     MovimentoPage.prototype.onDelete = function () {
@@ -138,7 +135,7 @@ var MovimentoPage = /** @class */ (function () {
     };
     MovimentoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-movimento',template:/*ion-inline-start:"C:\Users\Marco\Desktop\ccc\src\pages\movimento\movimento.html"*/'<ion-header>\n\n  <ion-navbar hide-tabs>\n    <ion-title>\n      <h1 [hidden]="!inserimento">{{\'ADD_FLOW\'| translate}}</h1>\n      <h1 [hidden]="inserimento">{{\'UPDATE_FLOW\'| translate}}</h1>\n    </ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <form #MovimentoForm="ngForm">\n    <ion-list no-lines>\n      <!-- nome -->\n      <ion-item>\n        <ion-label>{{\'CATEGORIA\'| translate}}</ion-label>\n        <ion-select name="nome" [(ngModel)]="movimento.categoria" #nome="ngModel" required\n        okText="{{ \'SAVE_BUTTON\' | translate }}" cancelText="{{ \'CANCEL_BUTTON\' | translate }}">\n            <ion-option *ngFor="let c of categorie" [value]="c">{{c.nome}}</ion-option>\n          </ion-select>\n      </ion-item>\n      <p ion-text [hidden]="nome.valid" color="danger" padding-left>\n          {{ \'CATEGORY_REQUIRED\' | translate }}\n      </p>\n      <!-- importo -->\n      <ion-item>\n        <ion-label>{{\'IMPORTO\'|translate}}</ion-label>\n        <ion-input type="number" #importo="ngModel" name="importo" [(ngModel)]="movimento.importo" required></ion-input>\n      </ion-item>\n      <p ion-text [hidden]="importo.valid" color="danger" padding-left>\n          {{ \'IMPORTO_REQUIRED\' | translate }}\n      </p>\n    </ion-list>\n    <!-- Submit -->\n    <ion-row responsive-sm>\n      <ion-col>\n        <button ion-button (click)="onSubmit(MovimentoForm)" type="submit" [disabled]="!MovimentoForm.form.valid" block>{{ \'SAVE_BUTTON\' | translate }}</button>\n      </ion-col>\n      <ion-col>\n        <button [hidden]="!inserimento" ion-button navPop block>{{\'CANCEL_BUTTON\'|translate}}</button>\n        <button [hidden]="inserimento" (click)="onDelete()" ion-button block>{{\'DELETE_BUTTON\'| translate}}</button>\n      </ion-col>\n    </ion-row>\n  </form>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Marco\Desktop\ccc\src\pages\movimento\movimento.html"*/,
+            selector: 'page-movimento',template:/*ion-inline-start:"C:\Users\Marco\Desktop\ccc\src\pages\movimento\movimento.html"*/'<ion-header>\n\n  <ion-navbar hide-tabs>\n    <ion-title>\n      <h3 [hidden]="!inserimento">{{\'ADD_FLOW\'| translate}}</h3>\n      <h3 [hidden]="inserimento">{{\'UPDATE_FLOW\'| translate}}</h3>\n    </ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <form #MovimentoForm="ngForm">\n    <ion-list no-lines>\n      <!-- nome -->\n      <ion-item>\n        <ion-label>{{\'CATEGORIA\'| translate}}</ion-label>\n        <ion-select name="nome" [(ngModel)]="movimento.categoria" #nome="ngModel" required\n        okText="{{ \'SAVE_BUTTON\' | translate }}" cancelText="{{ \'CANCEL_BUTTON\' | translate }}">\n            <ion-option *ngFor="let c of categorie" [value]="c">{{c.nome}}</ion-option>\n          </ion-select>\n      </ion-item>\n      <p ion-text [hidden]="nome.valid" color="danger" padding-left>\n          {{ \'CATEGORY_REQUIRED\' | translate }}\n      </p>\n      <!-- importo -->\n      <ion-item>\n        <ion-label>{{\'IMPORTO\'|translate}}</ion-label>\n        <ion-input type="number" #importo="ngModel" name="importo" [(ngModel)]="movimento.importo" required></ion-input>\n      </ion-item>\n      <p ion-text [hidden]="importo.valid" color="danger" padding-left>\n          {{ \'IMPORTO_REQUIRED\' | translate }}\n      </p>\n    </ion-list>\n    <!-- Submit -->\n    <ion-row responsive-sm>\n      <ion-col>\n        <button ion-button (click)="onSubmit(MovimentoForm)" type="submit" [disabled]="!MovimentoForm.form.valid" block outline>{{ \'SAVE_BUTTON\' | translate }}</button>\n      </ion-col>\n      <ion-col>\n        <button [hidden]="!inserimento" ion-button navPop block outline>{{\'CANCEL_BUTTON\'|translate}}</button>\n        <button [hidden]="inserimento" (click)="onDelete()" ion-button block outline>{{\'DELETE_BUTTON\'| translate}}</button>\n      </ion-col>\n    </ion-row>\n  </form>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Marco\Desktop\ccc\src\pages\movimento\movimento.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */], __WEBPACK_IMPORTED_MODULE_4__services_movimento_service__["a" /* MovimentoService */],
             __WEBPACK_IMPORTED_MODULE_5__services_categoria_service__["a" /* CategoriaService */], __WEBPACK_IMPORTED_MODULE_3__services_utente_service__["a" /* UtenteService */]])

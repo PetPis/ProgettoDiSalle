@@ -17,4 +17,9 @@ export class CatFamService{
     insert(c: CatFam){
         return this.http.post<CatFam>(URL.CATFAM, c);
     }
+
+    delete(id:number){
+        let apiUrl = `${URL.CATFAM}/idCatFam/${id}`
+        return this.http.delete<CatFam>(apiUrl)
+    }
 }

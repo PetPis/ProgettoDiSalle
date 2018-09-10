@@ -13,7 +13,6 @@ import { FamigliaService } from '../../services/famiglia.service';
 })
 export class RegistrazionePage {
   famiglia: Famiglia;
-  nomeFam: string;
   utente:Utente= {nome:"Nome",cognome:"Cognome",username:"Username",password:"Pass",famiglia:{id:0,nome:""}};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -25,45 +24,28 @@ export class RegistrazionePage {
   }
 
   onSubmit(form : NgForm){
-    if(form.valid){
-    this.nomeFam=this.utente.famiglia.nome;
-    //se la famiglia non è inserita la creo (nomeFam= Username utente)
-      /*if(!this.nomeFam){
-        //nomeFamiglia= NomeUsername
-        console.log("Famiglia Vuota")
-        this.famiglia.nome=this.utente.username;
-        console.log(this.famiglia);
-        this.famigliaService.createFamiglia(this.famiglia).subscribe(()=>{
-          console.log("creating new Family");
-        });
-        this.famigliaService.getFamigliaByNome(this.famiglia.nome).subscribe((data:Famiglia)=>{
-          this.utente.famiglia=data;
-        });
-      }
-
-      //se la famiglia è inserita vedo se esiste
-      else{*/
+    if(form.valid){    
         this.famigliaService.getFamigliaByNome(this.utente.famiglia.nome).subscribe((data:Famiglia) =>{
           if(data){
-            //se la famiglia la assegno all'utente
+            //se la famiglia esiste la assegno all'utente
             this.utente.famiglia=data;
             this.utenteService.register(this.utente).subscribe(()=>{})
-          }/*else{
+          }else{
             //altrimenti ne creo una con il nome specificato
-            this.famiglia.nome=this.nomeFam;
-            this.famigliaService.createFamiglia(this.famiglia).subscribe(()=>{
+            this.famigliaService.createFamiglia(this.utente.famiglia).subscribe(()=>{
               console.log("creating new Family");
             });
-            this.famigliaService.getFamigliaByNome(this.famiglia.nome).subscribe((data:Famiglia)=>{
-              this.utente.famiglia=data;
-            });
-          }*/
+            // devo rifare la query perchè non ho l'id della famiglia creata
+            this.famigliaService.getFamigliaByNome(this.utente.famiglia.nome).subscribe((data:Famiglia)=>{
+              this.utente.famiglia = data;
+              this.utenteService.register(this.utente).subscribe(()=>{});
+            })
+          }
         });
       this.navCtrl.pop();
       }
       
     }
-
     cancel(){
       this.navCtrl.pop();
     }

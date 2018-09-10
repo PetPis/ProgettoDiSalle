@@ -14,6 +14,10 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode es. The mode class is
 // automatically applied to the <body> element in the app.
+
+.toolbar-background{
+    background-color: #2b2f5b;
+}
 .centrato{
     text-align: center
 }
@@ -29,29 +33,61 @@
   }
 
 ion-title{
+    color:white !important;
     text-align: center;
     margin-right:50px;
 }
 
 .alignLeft{
     float:left;
+    text-align: left !important;
 }
 .alignRight{
     float:right;
+    text-align: right !important;
 }
-.buttonList{
-    margin-bottom: 0px;
-    margin-top: 0px;
-    border:1px solid;
-    border-radius: 7px;    
+button{
+    text-align: start;
+    background-color:transparent !important;
+	border-style: none !important;
+	display:inline-block;
+	cursor:pointer;
+	color:#fff !important;
+	font-family:Arial;
+	font-size:15px;
+    padding:16px 31px;  
+      
+}
+.buttonList:hover{
+    background: transparent !important;
 }
 
-.Bottone{
-    float:right;
-    padding-bottom: 0px;
+.redButton{
+    text-align: center;
+    border-width: 0px;
+    border-style: solid;
+    color:#ffffff;
+    background-color:#d4111c;
+    border-radius: 17px;
 }
 
+.greenButton{
+    text-align: center;
+    border-width: 0px;
+    border-style: solid;
+    color:#ffffff;
+    background-color:#1b924c;
+    border-radius: 17px;
+}
 .titleWithButton{
-    padding-top:10px;
-    margin-left:80px;
+    color: white !important;
+}
+
+.buttonCss{
+    button{
+        color:black !important;
+    }
+}
+ion-select.okText{
+    color:black !important;
 }

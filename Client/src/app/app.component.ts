@@ -98,6 +98,7 @@ export class MyApp {
     let alert = this.alertCtrl.create({
       title: "Errore",
       subTitle: errorMessage,
+      cssClass:'buttonCss',
       buttons: [
         {
           text: 'Ok',

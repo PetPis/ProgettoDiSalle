@@ -33,13 +33,13 @@ export class MovimentoService{
         return this.http.put<Movimento>(URL.MOVIMENTI, movimento);
     }
 
-    findByCategoriaId(id: number): Observable<Array<Movimento>>{
-        let movURL = `${URL.MOVIMENTI}/list/${id}`;
+    findByCategoriaId(idFam: number,idCat:number): Observable<Array<Movimento>>{
+        let movURL = `${URL.MOVIMENTI}/${idCat}/${idFam}`;
         return this.http.get<Array<Movimento>>(movURL);
     }
 
-    deleteByCategoriaId(id:number){
-        let del= `${URL.MOVIMENTI}/delete/${id}`;
-        return this.http.delete<Array<Movimento>>(del);
+    deleteByCatAndFam(id:number,idFam:number){
+        let del=`${URL.MOVIMENTI}/${id}/${idFam}`;
+        return this.http.delete<Movimento>(del);
     }
 }

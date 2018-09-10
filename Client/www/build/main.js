@@ -91,23 +91,23 @@ var map = {
 		8
 	],
 	"../pages/login/login.module": [
-		309,
+		311,
 		4
 	],
 	"../pages/movimenti/movimenti.module": [
-		310,
+		309,
 		3
 	],
 	"../pages/movimento/movimento.module": [
-		311,
+		310,
 		2
 	],
 	"../pages/profilo/profilo.module": [
-		312,
+		313,
 		7
 	],
 	"../pages/registrazione/registrazione.module": [
-		313,
+		312,
 		6
 	],
 	"../pages/tabs/tabs.module": [
@@ -258,12 +258,12 @@ var MovimentoService = /** @class */ (function () {
     MovimentoService.prototype.updateMovimento = function (movimento) {
         return this.http.put(__WEBPACK_IMPORTED_MODULE_1__constants__["c" /* URL */].MOVIMENTI, movimento);
     };
-    MovimentoService.prototype.findByCategoriaId = function (id) {
-        var movURL = __WEBPACK_IMPORTED_MODULE_1__constants__["c" /* URL */].MOVIMENTI + "/list/" + id;
+    MovimentoService.prototype.findByCategoriaId = function (idFam, idCat) {
+        var movURL = __WEBPACK_IMPORTED_MODULE_1__constants__["c" /* URL */].MOVIMENTI + "/" + idCat + "/" + idFam;
         return this.http.get(movURL);
     };
-    MovimentoService.prototype.deleteByCategoriaId = function (id) {
-        var del = __WEBPACK_IMPORTED_MODULE_1__constants__["c" /* URL */].MOVIMENTI + "/delete/" + id;
+    MovimentoService.prototype.deleteByCatAndFam = function (id, idFam) {
+        var del = __WEBPACK_IMPORTED_MODULE_1__constants__["c" /* URL */].MOVIMENTI + "/" + id + "/" + idFam;
         return this.http.delete(del);
     };
     MovimentoService = __decorate([
@@ -357,6 +357,10 @@ var CatFamService = /** @class */ (function () {
     };
     CatFamService.prototype.insert = function (c) {
         return this.http.post(__WEBPACK_IMPORTED_MODULE_2__constants__["c" /* URL */].CATFAM, c);
+    };
+    CatFamService.prototype.delete = function (id) {
+        var apiUrl = __WEBPACK_IMPORTED_MODULE_2__constants__["c" /* URL */].CATFAM + "/idCatFam/" + id;
+        return this.http.delete(apiUrl);
     };
     CatFamService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__node_modules_angular_core__["A" /* Injectable */])(),
@@ -465,11 +469,11 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/categorie/categorie.module#CategoriePageModule', name: 'CategoriePage', segment: 'categorie', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/impostazioni/impostazioni.module#ImpostazioniPageModule', name: 'ImpostazioniPage', segment: 'impostazioni', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/info/info.module#InfoPageModule', name: 'InfoPage', segment: 'info', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/movimenti/movimenti.module#MovimentiPageModule', name: 'MovimentiPage', segment: 'movimenti', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/movimento/movimento.module#MovimentoPageModule', name: 'MovimentoPage', segment: 'movimento', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/profilo/profilo.module#ProfiloPageModule', name: 'ProfiloPage', segment: 'profilo', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/registrazione/registrazione.module#RegistrazionePageModule', name: 'RegistrazionePage', segment: 'registrazione', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/profilo/profilo.module#ProfiloPageModule', name: 'ProfiloPage', segment: 'profilo', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] }
                     ]
                 })
@@ -667,6 +671,7 @@ var MyApp = /** @class */ (function () {
         var alert = this.alertCtrl.create({
             title: "Errore",
             subTitle: errorMessage,
+            cssClass: 'buttonCss',
             buttons: [
                 {
                     text: 'Ok',

@@ -1,6 +1,6 @@
 webpackJsonp([3],{
 
-/***/ 310:
+/***/ 309:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MovimentiPageModule", function() { return MovimentiPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__movimenti__ = __webpack_require__(324);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__movimenti__ = __webpack_require__(322);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_ngx_translate_core__ = __webpack_require__(109);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -56,7 +56,7 @@ var Movimento = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 324:
+/***/ 322:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124,7 +124,7 @@ var MovimentiPage = /** @class */ (function () {
     };
     MovimentiPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-movimenti',template:/*ion-inline-start:"C:\Users\Marco\Desktop\ccc\src\pages\movimenti\movimenti.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-row>\n      <ion-col col-11>\n        <ion-title class="titleWithButton">Save My Money</ion-title>\n      </ion-col>\n      <ion-col>\n        <button ion-button (click)="addMovimento()" class="Bottone">\n          <ion-icon name="add-circle" ></ion-icon>\n        </button>   \n    </ion-col>\n    </ion-row>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content padding>\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n        <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-list >\n    <ion-list-header>{{\'POSITIVO\' | translate}}</ion-list-header>\n    <ion-list *ngFor="let e of movimenti" >\n      <ion-item *ngIf="e.categoria.segno == \'ENTRATA\'">\n        <button ion-button  (click)="UpdateMovimento(e)" class="buttonList" block>\n            <ion-grid>\n                <ion-row>\n                  <ion-col><h2 class="alignLeft">{{e.categoria.nome}}</h2></ion-col>\n                  <ion-col><h2> {{\'CURRENCY_VALUE\'| translate}} +{{e.importo}}</h2></ion-col>\n                </ion-row>\n              </ion-grid>\n        </button>\n      </ion-item>\n    </ion-list>\n    \n    <ion-list-header>{{\'NEGATIVO\' | translate}}</ion-list-header>\n    <ion-list *ngFor="let u of movimenti" >\n      <ion-item *ngIf="u.categoria.segno == \'USCITA\'">\n          <button ion-button (click)="UpdateMovimento(u)"class="buttonList" block>\n            <ion-grid>\n            <ion-row>\n              <ion-col><h2 class="alignLeft">{{u.categoria.nome}}</h2></ion-col>\n              <ion-col><h2>{{\'CURRENCY_VALUE\'| translate}} {{u.importo}}</h2></ion-col>\n            </ion-row>\n          </ion-grid>\n          </button>\n      </ion-item>\n    </ion-list>\n  </ion-list>\n</ion-content>'/*ion-inline-end:"C:\Users\Marco\Desktop\ccc\src\pages\movimenti\movimenti.html"*/,
+            selector: 'page-movimenti',template:/*ion-inline-start:"C:\Users\Marco\Desktop\ccc\src\pages\movimenti\movimenti.html"*/'<ion-header>\n  <ion-navbar no-border-bottom >\n    <ion-row>\n      <ion-col col-9 offset-1>\n        <ion-title>Save My Money</ion-title>\n      </ion-col>\n      <ion-col>\n        <button ion-button (click)="addMovimento()" class="Bottone" outline>\n          <ion-icon name="add-circle" ></ion-icon>\n        </button>   \n    </ion-col>\n    </ion-row>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content padding>\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n        <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-list >\n    <ion-list-header>{{\'POSITIVO\' | translate}}</ion-list-header>\n    <ion-list *ngFor="let e of movimenti" >\n      <ion-item *ngIf="e.categoria.segno == true">\n        <button ion-button  (click)="UpdateMovimento(e)" class="buttonList" block outline>\n            <ion-grid>\n                <ion-row>\n                  <ion-col col-8><h2 class="alignLeft">{{e.categoria.nome}}</h2></ion-col>\n                  <ion-col><h2 class="greenButton"> {{\'CURRENCY_VALUE\'| translate}} +{{e.importo}}</h2></ion-col>\n                </ion-row>\n            </ion-grid>\n        </button>\n      </ion-item>\n    </ion-list>\n    \n    <ion-list-header>{{\'NEGATIVO\' | translate}}</ion-list-header>\n    <ion-list *ngFor="let u of movimenti" >\n      <ion-item *ngIf="u.categoria.segno == false">\n          <button ion-button (click)="UpdateMovimento(u)"class="buttonList" block outline>\n            <ion-grid>\n            <ion-row>\n              <ion-col col-8><h2 class="alignLeft">{{u.categoria.nome}}</h2></ion-col>\n              <ion-col col><h2 class="redButton">{{\'CURRENCY_VALUE\'| translate}} {{u.importo}}</h2></ion-col>\n            </ion-row>\n          </ion-grid>\n          </button>\n      </ion-item>\n    </ion-list>\n  </ion-list>\n</ion-content>'/*ion-inline-end:"C:\Users\Marco\Desktop\ccc\src\pages\movimenti\movimenti.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* App */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__services_movimento_service__["a" /* MovimentoService */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */]])

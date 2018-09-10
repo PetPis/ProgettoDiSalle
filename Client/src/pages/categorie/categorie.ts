@@ -38,28 +38,24 @@ export class CategoriePage {
     let c = new CatFam();
     c.categoria=new Categoria();
     c.categoria.nome="Nome";
-    c.categoria.segno="Segno";
+    c.categoria.segno=false;
     this.app.getRootNav().push(CATEGORIA_PAGE,{"inserimento":true,"c":c})
   }
 
-  delete(c:Categoria){    
+  delete(c:CatFam){    
     const confirm = this.alert.create({
       title: 'Elimina Categoria',
-      message: "Sei sicuro di voler Eliminare la categoria per la tua Famiglia? Tutti i movimenti con tale categoria saranno eliminati ",
+      message: "TUTTI I MOVIMENTI CON TALE CATEGORIA SARANNO ELIMINATI. PROCEDERE?",
+      cssClass:'buttonCss',
       buttons: [
         {
           text: 'Si',
           handler: () => {
-            this.movimentoService.findByCategoriaId(c.id).subscribe((data:Array<Movimento>)=>{
-              if(data){
-                this.error();
-              }else{
-                this.categoriaService.deleteCategoria(c).subscribe(()=>{
+                this.catFamService.delete(c.id).subscribe(()=>{
                   console.log("Categoria Eliminata");
+                  this.movimentoService.deleteByCatAndFam(c.categoria.id,c.famiglia.id).subscribe(()=>{})
                 });
               }
-            });
-          }
         },
         {
           text: 'No',
@@ -70,14 +66,5 @@ export class CategoriePage {
       ]
     });
     confirm.present();
-  }
-
-  error(){
-      let al = this.alert.create({
-      title: "Movimenti con Categoria Selezionata",
-      subTitle:"Prima di cancellare una categoria, eliminare i movimenti di essa",
-      buttons: ['OK']
-    });
-    al.present();
   }
 }

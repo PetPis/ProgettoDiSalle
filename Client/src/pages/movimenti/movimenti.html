@@ -1,11 +1,11 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar no-border-bottom >
     <ion-row>
-      <ion-col col-11>
-        <ion-title class="titleWithButton">Save My Money</ion-title>
+      <ion-col col-9 offset-1>
+        <ion-title>Save My Money</ion-title>
       </ion-col>
       <ion-col>
-        <button ion-button (click)="addMovimento()" class="Bottone">
+        <button ion-button (click)="addMovimento()" class="Bottone" outline>
           <ion-icon name="add-circle" ></ion-icon>
         </button>   
     </ion-col>
@@ -22,26 +22,26 @@
   <ion-list >
     <ion-list-header>{{'POSITIVO' | translate}}</ion-list-header>
     <ion-list *ngFor="let e of movimenti" >
-      <ion-item *ngIf="e.categoria.segno == 'ENTRATA'">
-        <button ion-button  (click)="UpdateMovimento(e)" class="buttonList" block>
+      <ion-item *ngIf="e.categoria.segno == true">
+        <button ion-button  (click)="UpdateMovimento(e)" class="buttonList" block outline>
             <ion-grid>
                 <ion-row>
-                  <ion-col><h2 class="alignLeft">{{e.categoria.nome}}</h2></ion-col>
-                  <ion-col><h2> {{'CURRENCY_VALUE'| translate}} +{{e.importo}}</h2></ion-col>
+                  <ion-col col-8><h2 class="alignLeft">{{e.categoria.nome}}</h2></ion-col>
+                  <ion-col><h2 class="greenButton"> {{'CURRENCY_VALUE'| translate}} +{{e.importo}}</h2></ion-col>
                 </ion-row>
-              </ion-grid>
+            </ion-grid>
         </button>
       </ion-item>
     </ion-list>
     
     <ion-list-header>{{'NEGATIVO' | translate}}</ion-list-header>
     <ion-list *ngFor="let u of movimenti" >
-      <ion-item *ngIf="u.categoria.segno == 'USCITA'">
-          <button ion-button (click)="UpdateMovimento(u)"class="buttonList" block>
+      <ion-item *ngIf="u.categoria.segno == false">
+          <button ion-button (click)="UpdateMovimento(u)"class="buttonList" block outline>
             <ion-grid>
             <ion-row>
-              <ion-col><h2 class="alignLeft">{{u.categoria.nome}}</h2></ion-col>
-              <ion-col><h2>{{'CURRENCY_VALUE'| translate}} {{u.importo}}</h2></ion-col>
+              <ion-col col-8><h2 class="alignLeft">{{u.categoria.nome}}</h2></ion-col>
+              <ion-col col><h2 class="redButton">{{'CURRENCY_VALUE'| translate}} {{u.importo}}</h2></ion-col>
             </ion-row>
           </ion-grid>
           </button>

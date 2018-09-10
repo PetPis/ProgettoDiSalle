@@ -1,6 +1,6 @@
 webpackJsonp([6],{
 
-/***/ 313:
+/***/ 312:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegistrazionePageModule", function() { return RegistrazionePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__registrazione__ = __webpack_require__(327);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__registrazione__ = __webpack_require__(326);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_ngx_translate_core__ = __webpack_require__(109);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -41,7 +41,7 @@ var RegistrazionePageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 327:
+/***/ 326:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -77,38 +77,23 @@ var RegistrazionePage = /** @class */ (function () {
     RegistrazionePage.prototype.onSubmit = function (form) {
         var _this = this;
         if (form.valid) {
-            this.nomeFam = this.utente.famiglia.nome;
-            //se la famiglia non è inserita la creo (nomeFam= Username utente)
-            /*if(!this.nomeFam){
-              //nomeFamiglia= NomeUsername
-              console.log("Famiglia Vuota")
-              this.famiglia.nome=this.utente.username;
-              console.log(this.famiglia);
-              this.famigliaService.createFamiglia(this.famiglia).subscribe(()=>{
-                console.log("creating new Family");
-              });
-              this.famigliaService.getFamigliaByNome(this.famiglia.nome).subscribe((data:Famiglia)=>{
-                this.utente.famiglia=data;
-              });
-            }
-      
-            //se la famiglia è inserita vedo se esiste
-            else{*/
             this.famigliaService.getFamigliaByNome(this.utente.famiglia.nome).subscribe(function (data) {
                 if (data) {
-                    //se la famiglia la assegno all'utente
+                    //se la famiglia esiste la assegno all'utente
                     _this.utente.famiglia = data;
                     _this.utenteService.register(_this.utente).subscribe(function () { });
-                } /*else{
-                  //altrimenti ne creo una con il nome specificato
-                  this.famiglia.nome=this.nomeFam;
-                  this.famigliaService.createFamiglia(this.famiglia).subscribe(()=>{
-                    console.log("creating new Family");
-                  });
-                  this.famigliaService.getFamigliaByNome(this.famiglia.nome).subscribe((data:Famiglia)=>{
-                    this.utente.famiglia=data;
-                  });
-                }*/
+                }
+                else {
+                    //altrimenti ne creo una con il nome specificato
+                    _this.famigliaService.createFamiglia(_this.utente.famiglia).subscribe(function () {
+                        console.log("creating new Family");
+                    });
+                    // devo rifare la query perchè non ho l'id della famiglia creata
+                    _this.famigliaService.getFamigliaByNome(_this.utente.famiglia.nome).subscribe(function (data) {
+                        _this.utente.famiglia = data;
+                        _this.utenteService.register(_this.utente).subscribe(function () { });
+                    });
+                }
             });
             this.navCtrl.pop();
         }
@@ -118,7 +103,7 @@ var RegistrazionePage = /** @class */ (function () {
     };
     RegistrazionePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-registrazione',template:/*ion-inline-start:"C:\Users\Marco\Desktop\ccc\src\pages\registrazione\registrazione.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>{{\'REGISTRATI\'|translate}}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <form #registerForm="ngForm">\n    <ion-list no-lines>\n      <ion-item>\n        <ion-label stacked>{{\'NOME\'|translate}}*</ion-label>\n        <ion-input [(ngModel)]="utente.nome" type="text" #nome="ngModel" name="nome" required></ion-input>\n      </ion-item>\n      <p ion-text [hidden]="nome.valid" color="danger" padding-left>{{\'NAME_REQUIRED\'|translate}}</p>\n      <ion-item>\n        <ion-label stacked>{{\'COGNOME\'|translate}}*</ion-label>\n        <ion-input [(ngModel)]="utente.cognome" type="text" #cognome="ngModel" name="cognome" required></ion-input>\n      </ion-item>\n      <p ion-text [hidden]="cognome.valid" color="danger" padding-left>{{\'COGNOME_REQUIRED\'|translate}}</p>\n      <ion-item>\n        <ion-label stacked>{{\'USERNAME\'|translate}}*</ion-label>\n        <ion-input [(ngModel)]="utente.username" type="text" #username="ngModel" name="username" required></ion-input>\n      </ion-item>\n      <p ion-text [hidden]="username.valid" color="danger" padding-left>{{\'USERNAME_REQUIRED\'|translate}}</p>\n      <ion-item>\n        <ion-label stacked>{{\'PASSWORD\'|translate}}*</ion-label>\n        <ion-input [(ngModel)]="utente.password" type="password" #password="ngModel" name="password" required></ion-input>\n      </ion-item>\n      <p ion-text [hidden]="password.valid" color="danger" padding-left>{{\'PASSWORD_REQUIRED\'|translate}}</p>\n      <ion-item>\n        <ion-label stacked>{{\'FAMIGLIA\'|translate}}</ion-label>\n        <ion-input [(ngModel)]="utente.famiglia.nome" type="text" #famiglia="ngModel" name="famiglia"></ion-input>\n      </ion-item>\n    </ion-list>\n    <ion-row responsive-sm>\n        <ion-col>\n          <button ion-button (click)="onSubmit(registerForm)" type="submit" [disabled]="!registerForm.form.valid" block>{{ \'REGISTRATI\' | translate }}</button>\n        </ion-col>\n        <ion-col>\n          <button ion-button (click)="cancel()" block>{{\'CANCEL_BUTTON\' | translate}}</button>\n        </ion-col>\n      </ion-row>\n  </form>\n  <div class="centrato">\n    <p>{{\'FAMIGLIA_WARN\'|translate}}</p>\n    <p>{{\'FAMIGLIA_WARN2\'|translate}}</p>\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\Marco\Desktop\ccc\src\pages\registrazione\registrazione.html"*/,
+            selector: 'page-registrazione',template:/*ion-inline-start:"C:\Users\Marco\Desktop\ccc\src\pages\registrazione\registrazione.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>{{\'REGISTRATI\'|translate}}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <form #registerForm="ngForm">\n    <ion-list no-lines>\n      <ion-item>\n        <ion-label stacked>{{\'NOME\'|translate}}*</ion-label>\n        <ion-input [(ngModel)]="utente.nome" type="text" #nome="ngModel" name="nome" required></ion-input>\n      </ion-item>\n      <p ion-text [hidden]="nome.valid" color="danger" padding-left>{{\'NAME_REQUIRED\'|translate}}</p>\n      <ion-item>\n        <ion-label stacked>{{\'COGNOME\'|translate}}*</ion-label>\n        <ion-input [(ngModel)]="utente.cognome" type="text" #cognome="ngModel" name="cognome" required></ion-input>\n      </ion-item>\n      <p ion-text [hidden]="cognome.valid" color="danger" padding-left>{{\'COGNOME_REQUIRED\'|translate}}</p>\n      <ion-item>\n        <ion-label stacked>{{\'USERNAME\'|translate}}*</ion-label>\n        <ion-input [(ngModel)]="utente.username" type="text" #username="ngModel" name="username" required></ion-input>\n      </ion-item>\n      <p ion-text [hidden]="username.valid" color="danger" padding-left>{{\'USERNAME_REQUIRED\'|translate}}</p>\n      <ion-item>\n        <ion-label stacked>{{\'PASSWORD\'|translate}}*</ion-label>\n        <ion-input [(ngModel)]="utente.password" type="password" #password="ngModel" name="password" required></ion-input>\n      </ion-item>\n      <p ion-text [hidden]="password.valid" color="danger" padding-left>{{\'PASSWORD_REQUIRED\'|translate}}</p>\n      <ion-item>\n        <ion-label stacked>{{\'FAMIGLIA\'|translate}}*</ion-label>\n        <ion-input [(ngModel)]="utente.famiglia.nome" type="text" #famiglia="ngModel" name="famiglia" required></ion-input>\n      </ion-item>\n      <p ion-text [hidden]="password.valid" color="danger" padding-left>{{\'FAMIGLIA_REQUIRED\'|translate}}</p>\n    </ion-list>\n    <ion-row responsive-sm>\n        <ion-col>\n          <button ion-button (click)="onSubmit(registerForm)" type="submit" [disabled]="!registerForm.form.valid" block outline>{{ \'REGISTRATI\' | translate }}</button>\n        </ion-col>\n        <ion-col>\n          <button ion-button (click)="cancel()" block outline>{{\'CANCEL_BUTTON\' | translate}}</button>\n        </ion-col>\n      </ion-row>\n  </form>\n  <div class="centrato">\n    <p>{{\'FAMIGLIA_WARN2\'|translate}}</p>\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\Marco\Desktop\ccc\src\pages\registrazione\registrazione.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_2__services_utente_service__["a" /* UtenteService */], __WEBPACK_IMPORTED_MODULE_3__services_famiglia_service__["a" /* FamigliaService */]])
